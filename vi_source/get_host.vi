@@ -2,3 +2,4 @@
 s/^/hostlist=[/g
 s/,$/]/g
 update
+quit
