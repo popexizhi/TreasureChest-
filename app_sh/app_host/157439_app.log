@@ -1,0 +1,18 @@
+[298771:0112/141141:4409475560148:INFO:noc_quic_appserver.cc(446)] HandleL2AuthReq, host_id: 157439, version: 1, begin
+[298771:0112/141141:4409475560156:INFO:noc_quic_appserver.cc(454)] HandleL2AuthReq, host_id: 157439, version: 1, QueryL2Pincode
+[298771:0112/141141:4409475560163:INFO:noc_quic_appserver.cc(233)] QueryL2Pincode, host_id: 157439, version: 1
+[298771:0112/141141:4409475824342:INFO:noc_quic_appserver.cc(462)] HandleL2AuthReq, host_id: 157439, version: 1, pincode: 7ac3c530b1f7
+[298771:0112/141141:4409475824360:INFO:noc_quic_appserver.cc(280)] VerifyL2AuthReq, host_id: 157439, version: 1
+[298771:0112/141141:4409475848851:INFO:noc_quic_encrypter_if.cc(92)] GenerateDeviceAuthDataForProvision, device_host_id: 157439, pin: 7ac3c530b1f7, device_nonce: 98cc7826fc0db6c4bbc2068a5994a5dc29cb744452bee878fcf645099056c8d5, device_pub_key: 33d06c6794be31f49726632178e4f6c3e966d16d00dbcd9b4179c7da202f6174, out_data_s: 90bef6ace3bb0ea1c53e3d1cc15e062a15af3d77de7e5c03dd5fe274f9d0fe75
+[298771:0112/141141:4409475848868:INFO:noc_quic_appserver.cc(307)] CalculateMasterKey, host_id: 157439, version: 1
+[298771:0112/141141:4409475850524:INFO:noc_quic_appserver.cc(338)] SaveMasterKey, host_id: 157439, version: 1
+[298771:0112/141141:4409475850548:INFO:table_host_conn_sqlite.cc(88)] TableHostConnSqlite::UpdateImpl, id: 676195356165451, client_host_id: 157439, server_host_id: 50507, layer: 2, qos: 0, cipher_suite: 0
+[298771:0112/141141:4409475850675:INFO:table_host_conn_sqlite.cc(43)] TableHostConnSqlite::InsertImpl, id: 676195356165451, client_host_id: 157439, server_host_id: 50507, layer: 2, qos: 0, cipher_suite: 0
+[298771:0112/141141:4409475852955:INFO:noc_quic_appserver.cc(473)] HandleL2AuthReq, host_id: 157439, version: 1, CreateAndSendL2AuthSuccessResp
+[298771:0112/141141:4409475852971:INFO:noc_quic_appserver.cc(410)] CreateL2AuthSuccessResp, host_id: 157439, version: 1
+[298771:0112/141141:4409475877916:INFO:noc_quic_appserver.cc(475)] HandleL2AuthReq, host_id: 157439, version: 1, end
+[298771:0112/141320:4409574558914:INFO:noc_quic_appserver.cc(641)] HandleDeviceInfoIndication, host_id: 157439, begin
+[298771:0112/141320:4409574560740:INFO:noc_quic_appserver.cc(666)] HandleDeviceInfoIndication, host_id: 157439, UploadDeviceInfoToEap
+[298771:0112/141321:4409576176251:INFO:noc_quic_appserver.cc(668)] HandleDeviceInfoIndication, host_id: 157439, UploadDeviceInfoToEap return
+[298771:0112/141321:4409576176263:INFO:noc_quic_appserver.cc(670)] HandleDeviceInfoIndication, host_id: 157439, CreateAndSendDeviceInfoSuccessConfirmation
+[298771:0112/141321:4409576176307:INFO:noc_quic_appserver.cc(672)] HandleDeviceInfoIndication, host_id: 157439, end
