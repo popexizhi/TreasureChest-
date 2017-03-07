@@ -18,3 +18,8 @@ load setlogconfig
     [ "$status" -eq 0 ]
     echo $output
 }
+@test "get log L2testcase" {
+    run get_log L2UE2APP  
+    [ "$status" -eq 0 ]
+    echo $output
+}

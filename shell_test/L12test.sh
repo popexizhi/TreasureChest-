@@ -38,3 +38,4 @@ echo "ue pid: "$ue_pid
 sleep 300
 echo "stop all test**********************"
 kill -9 ${fgw_pid} ${bgw_pid} ${app_pid} ${ue_pid}
+exit 0

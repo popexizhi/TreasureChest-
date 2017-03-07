@@ -50,16 +50,16 @@ get_log(){
     	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput"
     	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput">$ph/$1_fgw.log
     	echo "ue get log **************************************************"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
         ;;
     "L1FGW2UE")
     	echo "fgw get log **************************************************"
     	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput"
     	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput">$ph/$1_fgw.log
     	echo "ue get log **************************************************"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
         ;;
     "L1APP2BGW")
         echo "bgw get log**************************************************"
@@ -79,16 +79,16 @@ get_log(){
         ;;
     "L2UE2APP")
         echo "app get log**************************************************"
-        cat ${logph}/app_server,log,txt}|grep "EpollLoop Throughput"
-        cat ${logph}/app_server,log,txt}|grep "EpollLoop Throughput">$ph/$1_app.log
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput">$ph/$1_app.log
     	echo "ue get log **************************************************"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
-       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat ${logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
         ;;
     "L2APP2UE")
         echo "app get log**************************************************"
-        cat ${logph}/app_server,log,txt|grep "EpollLoop Throughput"
-        cat ${logph}/app_server,log,txt|grep "EpollLoop Throughput">$ph/$1_app.log
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput">$ph/$1_app.log
     	echo "ue get log **************************************************"
        	cat $logph/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
        	cat $logph/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
