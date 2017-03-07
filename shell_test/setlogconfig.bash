@@ -1,7 +1,9 @@
 #!/bin/bash
+ph="/home/slim/test/throught/"
+logph="."
 set_log(){
     echo "start set_log $1"
-    logConfig="logConfig.cfg"
+    logConfig="${ph}/logConfig.cfg"
     echo "">${logConfig}
 	echo "set logConfig.cfg for testcase:$1**********************"
     case $1 in
@@ -39,10 +41,64 @@ set_log(){
 
 get_log(){
 	echo "testcase log check: $1****************************************"
-	echo "fgw get log **************************************************"
-	cat fgw.log.txt|grep "EpollLoop Throughput"
-	echo "ue get log **************************************************"
-	cat log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+    ph="res_`date '+%y%m%d'`"
+    mkdir $ph
+    echo "$ph"
+    case $1 in
+    "L1UE2FGW" )
+    	echo "fgw get log **************************************************"
+    	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput"
+    	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput">$ph/$1_fgw.log
+    	echo "ue get log **************************************************"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+        ;;
+    "L1FGW2UE")
+    	echo "fgw get log **************************************************"
+    	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput"
+    	cat ${logph}/fgw.log.txt|grep "EpollLoop Throughput">$ph/$1_fgw.log
+    	echo "ue get log **************************************************"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+        ;;
+    "L1APP2BGW")
+        echo "bgw get log**************************************************"
+        cat ${logph}/bgw.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/bgw.log.txt|grep "EpollLoop Throughput">$ph/$1_bgw.log
+        echo "app get log**************************************************"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput">$ph/$1_app.log
+        ;;
+    "L1BGW2APP")
+        echo "bgw get log**************************************************"
+        cat ${logph}/bgw.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/bgw.log.txt|grep "EpollLoop Throughput">$ph/$1_bgw.log
+        echo "app get log**************************************************"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput"
+        cat ${logph}/app_server.log.txt|grep "EpollLoop Throughput">$ph/$1_app.log
+        ;;
+    "L2UE2APP")
+        echo "app get log**************************************************"
+        cat ${logph}/app_server,log,txt}|grep "EpollLoop Throughput"
+        cat ${logph}/app_server,log,txt}|grep "EpollLoop Throughput">$ph/$1_app.log
+    	echo "ue get log **************************************************"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat $(logph}/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+        ;;
+    "L2APP2UE")
+        echo "app get log**************************************************"
+        cat ${logph}/app_server,log,txt|grep "EpollLoop Throughput"
+        cat ${logph}/app_server,log,txt|grep "EpollLoop Throughput">$ph/$1_app.log
+    	echo "ue get log **************************************************"
+       	cat $logph/log/ue_client_200.log.txt|grep "EpollLoop Throughput"
+       	cat $logph/log/ue_client_200.log.txt|grep "EpollLoop Throughput">$ph/$1_ue.log
+        ;;
+    *)
+        echo "no has this testcase name [$1]"
+        ;;
+    esac
+    return 0
+
 }
 
 testcase_doing(){ 

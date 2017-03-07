@@ -13,4 +13,8 @@ load setlogconfig
     #result=`cat ${cfp}`
     #[ "${result[0]}" = "param.test:test_service_mode = 4 //disable layer2 socket test"  ]
 }
-
+@test "get log testcase" {
+    run get_log L1UE2FGW  
+    [ "$status" -eq 0 ]
+    echo $output
+}

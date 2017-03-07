@@ -1,6 +1,6 @@
 #!/bin/bash
 hostip=$1
-fp="."
+fp="/home/slim/test/throught/"
 command_str_fgw="${fp}/fgw_server -cfg=alone.cfg -relay"
 command_str_bgw="${fp}/bgw_server -cfg=alone.cfg -relay"
 command_str_app="${fp}/app_server -cfg=alone.cfg -alone"
