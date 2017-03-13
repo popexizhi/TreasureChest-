@@ -1,7 +1,8 @@
 #!/bin/bash
-ph="/home/slim/test/throught/"
-logph="."
 set_log(){
+    #ph="/home/slim/test/throught/"
+    ph="."
+    logph="."
     echo "start set_log $1"
     logConfig="${ph}/logConfig.cfg"
     echo "">${logConfig}
@@ -35,6 +36,7 @@ set_log(){
         echo "no has this testcase name[$1]"
         ;;
     esac
+    echo "cat ${logConfig}"
 	cat ${logConfig}
     return 0
 }
