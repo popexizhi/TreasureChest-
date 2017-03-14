@@ -34,6 +34,7 @@ set_log(){
         ;;
     *)
         echo "no has this testcase name[$1]"
+        return -1
         ;;
     esac
     echo "cat ${logConfig}"
@@ -106,7 +107,13 @@ get_log(){
 testcase_doing(){ 
     echo "testcase is $1"
 	set_log $1
-	./L12test.sh 
+	./L12test.sh # 测试4个独立网元
+	get_log $1
+}
+testcase_for_other(){ 
+    echo "testcase is $1"
+	set_log $1
+	./L2test.sh # 测试3个独立网元,不包含appserver
 	get_log $1
 }
 #testcase_doing L1UE2FGW
