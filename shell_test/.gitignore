@@ -4,3 +4,11 @@
 *.cfg
 *.out
 res_*
+res*
+
+#
+*_server
+slim_engine_test
+
+#tmp
+.gitignore
