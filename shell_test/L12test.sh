@@ -1,6 +1,6 @@
 #!/bin/bash
 hostip=$1
-fp="/home/slim/test/throught/"
+fp="."
 command_str_fgw="${fp}/fgw_server -cfg=alone.cfg -relay"
 command_str_bgw="${fp}/bgw_server -cfg=alone.cfg -relay"
 command_str_app="${fp}/app_server -cfg=alone.cfg -alone"
@@ -15,6 +15,10 @@ command_udp_c2s_ueII="${fp}/slim_engine_test -cfg=alone.cfg  -data_direction=c2s
 
 rm -rf *.db
 rm -rf nohup.out
+if [[ ! -d backup ]];
+then
+    mkdir backup
+fi
 mv *.log.txt backup
 mv -rf log backup
 
@@ -35,7 +39,7 @@ sleep 2
 nohup ${command_str_ue} &
 ue_pid="$!"
 echo "ue pid: "$ue_pid
-sleep 600
+sleep 300
 echo "stop all test**********************"
 kill -9 ${fgw_pid} ${bgw_pid} ${app_pid} ${ue_pid}
 exit 0

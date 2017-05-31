@@ -28,7 +28,7 @@ set_log(){
         echo "param.test:test_service_mode = 4   //disable layer2 socket test">>${logConfig}
         echo "param.Padding:Mode = 2  // enable stream test, layer 2, ue->app">>${logConfig}
         ;;
-    "L2APP2BGW")
+    "L2APP2UE")
         echo "param.test:test_service_mode = 4   //disable layer2 socket test">>${logConfig}
         echo "param.Padding:Mode = 4  // enable stream test, layer 2, app->ue">>${logConfig}
         ;;
@@ -44,7 +44,9 @@ set_log(){
 
 get_log(){
 	echo "testcase log check: $1****************************************"
-    ph="res_`date '+%y%m%d'`"
+    #ph="res_`date '+%y%m%d%H%M'`"
+    ph=$2
+    rm -rf $ph
     mkdir $ph
     echo "$ph"
     case $1 in
@@ -98,6 +100,7 @@ get_log(){
         ;;
     *)
         echo "no has this testcase name [$1]"
+        return -1
         ;;
     esac
     return 0
@@ -108,12 +111,16 @@ testcase_doing(){
     echo "testcase is $1"
 	set_log $1
 	./L12test.sh # 测试4个独立网元
-	get_log $1
+    #ph="res_`date '+%y%m%d%H%M'`"
+    ph=$2
+	get_log $1 $ph
 }
 testcase_for_other(){ 
     echo "testcase is $1"
 	set_log $1
-	./L2test.sh # 测试3个独立网元,不包含appserver
-	get_log $1
+    ./L2test.sh # 测试3个独立网元,不包含appserver
+    ph=$2
+	get_log $1 $ph
+    sshpass -p'abc123,./' scp -r $ph slim@192.168.1.71:/jenkins/test/workspace/loadtest_sockettest
 }
 #testcase_doing L1UE2FGW

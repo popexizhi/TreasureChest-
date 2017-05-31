@@ -24,7 +24,7 @@ sleep 3
 nohup ${command_str_ue} &
 ue_pid="$!"
 echo "ue pid: "$ue_pid
-sleep 600
+sleep 120
 echo "stop all test**********************"
 kill -9 ${fgw_pid} ${bgw_pid} ${ue_pid}
 exit 0
