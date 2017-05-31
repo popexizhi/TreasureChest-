@@ -46,8 +46,8 @@ get_log(){
 	echo "testcase log check: $1****************************************"
     #ph="res_`date '+%y%m%d%H%M'`"
     ph=$2
-    rm -rf $ph
-    mkdir $ph
+    #rm -rf $ph
+    #mkdir $ph #fix:多个testcase只有最后的运行结果问题05/31/17 popexizhi
     echo "$ph"
     case $1 in
     "L1UE2FGW" )
