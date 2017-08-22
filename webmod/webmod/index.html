@@ -37,7 +37,7 @@ document.getElementById("index_list").innerHTML = res;
     </div>
     
     <header class="w3-container w3-theme" style="padding:64px 32px">
-    <h1 class="w3-xxxlarge">cluter 测试结果</h1>
+    <h1 class="w3-xxxlarge">cluter 测试结果:<div id="index_name_div"></div> </h1>
     </header>
 
     <div class="w3-container" style="padding:32px">
@@ -78,6 +78,7 @@ document.getElementById("index_list").innerHTML = res;
     
     <script>
     init_all_test(); //加载testcase说明
+    open_data("@index_name");//加载默认指定的报告
     //打开对应的测试报告数据
     function open_data(report_name){
         var http = new XMLHttpRequest();
@@ -87,6 +88,7 @@ document.getElementById("index_list").innerHTML = res;
         http.open("POST", url, true);
         var title_name= "<a href=http://192.168.1.216/test/provision_test/load_test/cluster/" +report_name +" target='_blank'>" + url + "</a>";
         document.getElementById("myIntro").innerHTML = title_name ;
+        document.getElementById("index_name_div").innerHTML = report_name ;
         //Send the proper header information along with the request
         http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -100,6 +102,9 @@ document.getElementById("index_list").innerHTML = res;
            }
         }
         http.send(params);
+        //location.href = "http://192.168.1.207:8999/cluter_list/" + report_name;
+        var stateObj = { foo: "bar" };
+        history.pushState(stateObj, "", report_name);
         //myAccordion('demo');
     }
     //生成对应的测试用例集说明

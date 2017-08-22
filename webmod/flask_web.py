@@ -11,7 +11,7 @@ def cluter_list(list_name):
     content = request.json
     print "%s,%s" % (str(list_name), str(content))
     report_test = ""
-    report_test = index_html()
+    report_test = index_html(str(list_name))
     #return jsonify({'res': 'ok', 'report': report_test })
     return report_test
 
@@ -33,9 +33,9 @@ def job_doing(report_name, report_test):
     #return x.get_report_data(report_name, report_test)
     return x.get_report_data_json(report_name, report_test)
 
-def index_html():
+def index_html(index_name):
     x = get_report()
-    return x.get_report_index() 
+    return x.get_report_index(index_name) 
 
 
 class get_report():
@@ -59,12 +59,12 @@ class get_report():
         self.log(report_data)
         return self.get_json(report_data) 
     
-    def get_report_index(self):
+    def get_report_index(self, index_name):
         index_list = self.db.get_report_names()
         self.log(index_list)
         #return index_list
         #替换html模板数据
-        return self.get_index(self.index_mod, index_list)
+        return self.get_index(self.index_mod, index_list, index_name)
     
     def get_json(self, data):
         res_json = []
@@ -77,7 +77,7 @@ class get_report():
         self.log(str(res_json))
         return res_json
 
-    def get_index(self, modfile, report_data):
+    def get_index(self, modfile, report_data, index_name):
         f=open(modfile)
         modstr = "" 
         for line in f.readlines():
@@ -91,6 +91,10 @@ class get_report():
             self.log(report_list)
         link2 = re.compile("@cluster_list_arr")
         res = re.sub(link2, report_list, res)
+
+        #sub index_name
+        link_index_name = re.compile("@index_name")
+        res = re.sub(link_index_name, index_name, res)
         return res
 
     def get_mod(self, modfile, report_data):
