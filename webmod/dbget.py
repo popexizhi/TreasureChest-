@@ -35,7 +35,7 @@ class db_mod():
         return res
 
     def get_report_names(self):
-        sql= "select DISTINCT report_name from cluster_fun where report_name not like '%testreport%';" #不显示测试数据
+        sql= "select DISTINCT report_name from cluster_fun where report_name not like '%testreport%' ORDER BY report_name DESC;" #不显示测试数据
         return self.select(sql, num="all")
 
     def select(self, sql, num="one" , sql_debug=None):
