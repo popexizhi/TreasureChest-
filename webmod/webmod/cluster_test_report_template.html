@@ -1,0 +1,111 @@
+﻿<html>
+
+<body>
+<table border="1" rules="all">
+<caption>集群case测试结果</caption>
+<tr>
+<td>测试项</td>
+<td>子测试项</td>
+<td>用例描述</td>
+<td>结果检查条件</td>
+<td>测试结果</td>
+<td>ue业务恢复时间</td>
+</tr>                                                                                                                                                                                            
+<tr>
+  <td rowspan="4">nag集群</td>
+  <td>连接分配规则：<br>根据已连接的ue数量进行均匀分配</td>
+  <td>集群中2个nag在线，启动var_nag_c1_total_ue_num个ue进行连接并做业务活动<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>nag1,nag2接入量均>=var_nag_c1_check_ue_num</td>
+  <td><b>var_nag_c1_result</b><br>详见<br>var_nag_c1_html</td>
+  <td><br>--<br><br></td>
+</tr>
+<tr>
+  <td>快速重启</td>
+  <td>集群中2个nag在线并各自接入了var_nag_c2_half_ue_num左右ue做业务活动，快速重启nag1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有在nag1上的ue在nag1重启后再次成功接入并恢复业务活动</td>
+  <td><b>var_nag_c2_result</b><br>详见<br>var_nag_c2_html</td>
+  <td>1.恢复业务的ue数量：var_nag_c2_real_restore_ue_num/var_nag_c2_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_nag_c2_restore_avg_time<br>3.恢复业务最大用时(s)：var_nag_c2_restore_max_time<br>4.恢复业务最小用时(s)：var_nag_c2_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中一个结点下线</td>
+  <td>集群中2个nag在线并各自接入了var_nag_c3_half_ue_num左右ue做业务活动，kill掉nag1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有nag1上的ue连接在nag1下线后连接到nag2并恢复业务活动</td>
+  <td><b>var_nag_c3_result</b><br>详见<br>var_nag_c3_html</td>
+  <td>1.恢复业务的ue数量：var_nag_c3_real_restore_ue_num/var_nag_c3_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_nag_c3_restore_avg_time<br>3.恢复业务最大用时(s)：var_nag_c3_restore_max_time<br>4.恢复业务最小用时(s)：var_nag_c3_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中新增一个结点</td>
+  <td>集群中nag1在线并接入了var_nag_c4_total_ue_numue做业务活动，启动nag2<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>nag1上连接的ue数量不变，nag2上没有ue接入</td>
+  <td><b>var_nag_c4_result</b><br>详见<br>var_nag_c4_html</td>
+  <td><br>--<br><br></td>
+</tr>
+
+
+<tr>
+  <td rowspan="4">fgw集群</td>
+  <td>连接分配规则：rr分配</td>
+  <td>集群中2个fgw在线，启动var_fgw_c1_total_ue_num个ue进行连接并做业务活动<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>fgw1,fgw2接入量均>=var_fgw_c1_check_ue_num</td>
+  <td><b>var_fgw_c1_result</b><br>详见<br>var_fgw_c1_html</td>
+  <td><br>--<br><br></td>
+</tr>
+<tr>
+  <td>快速重启</td>
+  <td>集群中2个fgw在线并各自接入了var_fgw_c2_half_ue_num左右ue做业务活动，快速重启fgw1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有ue在fgw1重启后再次成功接入并恢复业务活动</td>
+  <td><b>var_fgw_c2_result</b><br>详见<br>var_fgw_c2_html</td>
+  <td>1.恢复业务的ue数量：var_fgw_c2_real_restore_ue_num/var_fgw_c2_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_fgw_c2_restore_avg_time<br>3.恢复业务最大用时(s)：var_fgw_c2_restore_max_time<br>4.恢复业务最小用时(s)：var_fgw_c2_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中一个结点下线</td>
+  <td>集群中2个fgw在线并各自接入了var_fgw_c3_half_ue_num左右ue做业务活动，kill掉fgw1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有fgw1上的ue连接在fgw1下线后连接到fgw2并恢复业务活动</td>
+  <td><b>var_fgw_c3_result</b><br>详见<br>var_fgw_c3_html</td>
+  <td>1.恢复业务的ue数量：var_fgw_c3_real_restore_ue_num/var_fgw_c3_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_fgw_c3_restore_avg_time<br>3.恢复业务最大用时(s)：var_fgw_c3_restore_max_time<br>4.恢复业务最小用时(s)：var_fgw_c3_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中新增一个结点</td>
+  <td>集群中fgw1在线并接入了var_fgw_c4_total_ue_numue做业务活动，启动fgw2<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>fgw1上连接的ue数量不变，fgw2上没有ue接入</td>
+  <td><b>var_fgw_c4_result</b><br>详见<br>var_fgw_c4_html</td>
+  <td><br>--<br><br></td>
+</tr>
+
+
+
+<tr>
+  <td rowspan="4">bgw集群</td>
+  <td>连接分配规则：rr分配</td>
+  <td>集群中2个bgw在线，启动2个nag进行连接并做业务活动<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>bgw1,bgw2各接入1个nag</td>
+  <td><b>var_bgw_c1_result</b><br>详见<br>var_bgw_c1_html</td>
+  <td><br>--<br><br></td>
+</tr>
+<tr>
+  <td>快速重启</td>
+  <td>集群中2个bgw在线并各自接入了1个nag做业务活动，快速重启bgw1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有在bgw1上的nag在bgw1重启后再次成功接入并恢复业务活动</td>
+  <td><b>var_bgw_c2_result</b><br>详见<br>var_bgw_c2_html</td>
+  <td>1.恢复业务的ue数量：var_bgw_c2_real_restore_ue_num/var_bgw_c2_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_bgw_c2_restore_avg_time<br>3.恢复业务最大用时(s)：var_bgw_c2_restore_max_time<br>4.恢复业务最小用时(s)：var_bgw_c2_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中一个结点下线</td>
+  <td>集群中2个bgw在线并各自接入了1个nag做业务活动，kill掉bgw1<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>原有bgw1上的nag在bgw1下线后连接到bgw2并恢复业务活动</td>
+  <td><b>var_bgw_c3_result</b><br>详见<br>var_bgw_c3_html</td>
+  <td>1.恢复业务的ue数量：var_bgw_c3_real_restore_ue_num/var_bgw_c3_plan_restore_ue_num<br>2.恢复业务平均用时(s)：var_bgw_c3_restore_avg_time<br>3.恢复业务最大用时(s)：var_bgw_c3_restore_max_time<br>4.恢复业务最小用时(s)：var_bgw_c3_restore_min_time<br></td>
+</tr>
+<tr>
+  <td>集群中新增一个结点</td>
+  <td>集群中bgw1在线并接入了2个nag做业务活动，启动bgw2<br> 业务模型：nag ---> per ue: 32kbps </td>
+  <td>bgw1上连接的nag数量不变，bgw2上没有nag接入</td>
+  <td><b>var_bgw_c4_result</b><br>详见<br>var_bgw_c4_html</td>
+  <td><br>--<br><br></td>
+</tr>
+
+
+</table>
+
+</body>
+</html>
