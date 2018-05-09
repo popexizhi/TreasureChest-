@@ -202,51 +202,7 @@ CSAct[/*CMP*/ 'BC43C8C88'] = new Array(CSGotoLink,/*URL*/ 'Report0.xls','');
 					<div class="pane_full">
 <table width="100%%" border="1" frame="box" rules="all" cellpadding="1" cellspacing="0" class="legendTable">
 <tr class="legendHeader">
-<td>
-Scale
-</td>
-<td>
-Measurement
-</td>
-<td>
-Graph Minimum
-</td>
-<td>
-Graph Average
-</td>
-<td>
-Graph Maximum
-</td>
-<td>
-Graph Median
-</td>
-<td>
-Graph Std. Deviation
-</td>
-</tr>
-<tr class="legendRow">
-<td>
-1
-</td>
-<td>
 %s
-</td>
-<td>
-%s
-</td>
-<td>
-%s
-</td>
-<td>
-%s
-</td>
-<td>
-%s
-</td>
-<td>
-%s
-</td>
-</tr>
 </table>
 
 					</div>
@@ -292,13 +248,29 @@ Graph Std. Deviation
 </html>
 """
 
-def templet_data( title, csvfp, testtime_str, da_min, da_avg, da_max, da_med, da_std, des, fp="x.html"):
-    res = html_str % ( title, title, csvfp, testtime_str, csvfp, title, da_min, da_avg, da_max, da_med, da_std, des)
+def templet_data_table( title, csvfp, testtime_str, da_table_list, des, fp="x.html"):
+    da_table = get_table_data_tr_td(da_table_list)
+    res = html_str % ( title, title, csvfp, testtime_str, csvfp, da_table, des)
     f = open(fp,"w")
     f.write(res)
     f.close()
     return fp
 
+def get_table_data_tr_td(dlist):
+    """table list 列表数据 """
+    com =""
+    row_com = """<tr class="legendRow">"""
+    index = 0
+    for i in dlist:
+        if 0 == index:
+            com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>%s" % (com, i[0],i[1],i[2],i[3],i[4], row_com)
+            index = index + 1
+        else:
+            com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (com, i[0],i[1],i[2],i[3],i[4])
+    return com
+
 if __name__=="__main__":
-   print templet_data(title="Test Gw Count", csvfp="jenkins_fgw_online.csv" , testtime_str="2016-11-29 10:20 ~ 2016-11-29 13:00", \
-   da_min="6.0", da_avg="5253.87573447887", da_max="124503.0", da_med="1245", da_std="13466.531697681452", des="最大 L2 数据收发速率") 
+   print templet_data_table(title="Test Gw Count", csvfp="jenkins_fgw_online.csv" , testtime_str="2016-11-29 10:20 ~ 2016-11-29 13:00", \
+   da_table_list=[["1t","1t","1t","1t","1t"],["6.0","5253.87573447887","124503.0","1245","13466.531697681452"]], des="最大 L2 数据收发速率") 
+   #print get_table_data_tr_td([[1,1,1,1,1,1], [1,1,1,1,1,1]])
+
