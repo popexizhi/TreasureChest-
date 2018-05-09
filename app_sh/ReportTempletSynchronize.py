@@ -154,7 +154,7 @@ CSAct[/*CMP*/ 'BC43C8C88'] = new Array(CSGotoLink,/*URL*/ 'Report0.xls','');
         gs.push(
           new Dygraph(
             document.getElementById("div" + i),
-            "nginx_upstream_log/" + log_name + "_tmp_" + i, 
+            log_name + "_" + i, 
             {
               rollPeriod: 1,
               //errorBars: true,
@@ -165,7 +165,7 @@ CSAct[/*CMP*/ 'BC43C8C88'] = new Array(CSGotoLink,/*URL*/ 'Report0.xls','');
         gs.push(
           new Dygraph(
             document.getElementById("divnum" + i),
-            "nginx_upstream_log/" + log_name + "_tmp_" + i + "_num", 
+            log_name + "_" + i + "_num", 
             {
               rollPeriod: 1,
               //errorBars: true,
@@ -262,11 +262,20 @@ def get_table_data_tr_td(dlist):
     row_com = """<tr class="legendRow">"""
     index = 0
     for i in dlist:
+        num = len(i) # dilist[i] 's num
         if 0 == index:
-            com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>%s" % (com, i[0],i[1],i[2],i[3],i[4], row_com)
+            #com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>%s" % (com, i[0],i[1],i[2],i[3],i[4], row_com)
+            com = "%s\n" % com
+            for j in xrange(num):
+                com = "%s<td>%s</td>" % (com, i[j])
+            com = "%s</tr>%s" % (com, row_com) 
             index = index + 1
         else:
-            com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (com, i[0],i[1],i[2],i[3],i[4])
+            #com = "%s\n<td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>" % (com, i[0],i[1],i[2],i[3],i[4])
+            com = "%s\n" % com
+            for j in xrange(num):
+                com = "%s<td>%s</td>" % (com, i[j])
+            com = "%s</tr>" % com 
     return com
 
 if __name__=="__main__":
