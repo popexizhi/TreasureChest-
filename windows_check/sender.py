@@ -50,9 +50,9 @@ if __name__ == "__main__":
         conx = conx + str(i)
     print conx
     data = {
-            "recipients":"lijie@threatbook.cn",
+            "recipients":"test@mail.cn",
             "subject":"dump-mail",
-            "cc":"lijie@threatbook.cn",
+            "cc":"test@mail.cn",
             "content":conx,
             "contentType":"html"
         }
