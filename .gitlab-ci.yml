@@ -1,0 +1,11 @@
+stages:
+  - deploy
+  - test
+  - reporting
+executing-test:
+  stage: test
+  script:
+  - pwd
+  - whoami
+  - ip add
+
