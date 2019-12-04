@@ -1,0 +1,16 @@
+#!/bin/bash
+
+dir_name=$1
+grep_str=$2
+echo "">res_back_temp
+#get pcap file list
+list_pcap=`ls -all ${dir_name}|awk '{print $9}'`
+#tcpdump read and grep
+for i in ${list_pcap}
+do
+    res=`tcpdump -r ${dir_name}/${i}|grep ${grep_str}|wc -l`
+    echo "[${res}]${dir_name}/${i}"|tee -a res_back_temp
+done
+echo "#####################################"
+echo "[查找到的次数]文件路径"
+cat res_back_temp|grep -v "^\[0\]"
