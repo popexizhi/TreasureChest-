@@ -1,5 +1,0 @@
-%s/\n/,/g
-s/^/hostlist=[/g
-s/,$/]/g
-update
-quit
