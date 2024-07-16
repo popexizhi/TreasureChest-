@@ -1,0 +1,49 @@
+#!/bin/bash
+#虚拟网卡哈
+add_tap()
+{
+    scp nux-misc.repo root@$i:"/etc/yum.repos.d/" 
+    ssh root@$i "yum -y --enablerepo=nux-misc install tunctl"
+    ssh root@$i "tunctl -b&&ifconfig tap0 up"
+    ssh root@$i "ip add|grep tap"
+}
+#pcap包哈
+pcap_add()
+{
+    scp -r use_pcap/ root@$i:"~"
+    scp cron.sh root@$i:"/etc/cron.daily/"
+    #10 8-11,14-16 * * *  /etc/cron.daily/cron.sh >/dev/null 2>&1 &
+    ssh root@$i 'echo "10 8-11,14-16 * * *  /etc/cron.daily/cron.sh >/dev/null 2>&1" >> /var/spool/cron/root'
+    #ssh root@$i 'crontab -l'
+}
+fix_tcpreplay()
+{
+	ssh root@$i "yum install libnsl.x86_64 -y"
+    ssh root@$i "tcpreplay -h"
+}
+#添加hotfix自动更新文件
+add_auto_hotfix()
+{
+    ssh root@$i "if [ ! -d ~/test ];then mkdir test;fi" 
+    scp -r auto_hotfix_edit root@$i:~/test
+}
+list="192.168.119.63
+#192.168.119.59
+#192.168.119.60
+#192.168.119.61
+#192.168.119.62
+#192.168.119.64"
+list="192.168.118.155
+192.168.118.152
+192.168.118.153
+192.168.118.154
+192.168.118.151"
+for i in $list
+do
+	echo "###########$i##############"
+    #add_tap
+    #pcap_add
+    #fix_tcpreplay
+    add_auto_hotfix
+    #exit
+done

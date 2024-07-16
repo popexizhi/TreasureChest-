@@ -1,0 +1,72 @@
+check_pcap()
+{
+    cd /data/tdp/hotfix/
+    pcage_num=`ls -all|grep hotfix|awk '{print $9}'|sed 's/.202.*//'|sed 's/^.*\.//'|tail -1`
+    if [ -z ${pcage_num} ]
+    then
+        ls -all /data/tdp/hotfix
+        echo "############################################"
+        echo "无hotfix包可以升级，结束运行"
+        exit 0
+    fi
+    echo "hotfix包版本:${pcage_num}"
+
+    #next get mysql old num
+    db_pcap_num=`mysql tip_web -e "select hotfix_num from hotfix order by id desc limit 1;"|tail -n 1`
+    echo "############################################"
+    echo "mysql当前hotfix版本:${db_pcap_num}"
+    #diff pcage_num db_pcap_num
+    #==;delete mysql/get -1 set in version;update [next]
+    echo "############################################"
+    if [ ${db_pcap_num} -eq ${pcage_num} ]
+    then
+    	echo "mysql存储的hotfix包版本 == hotfix包版本"
+    	echo "${db_pcap_num} -eq ${pcage_num}"
+        update_change
+    fi
+    #<;update
+    if [ ${db_pcap_num} -lt ${pcage_num} ]
+    then
+    	echo "mysql存储的hotfix包版本 < hotfix包版本"
+    	echo "${db_pcap_num} < ${pcage_num}"
+        update_only
+    fi
+    #>;echo "???还升级吗?"
+    if [ ${db_pcap_num} -gt ${pcage_num} ]
+    then
+    	echo "mysql存储的hotfix包版本 > hotfix包版本,不用升级了吧？！退出运行"
+    	echo "${db_pcap_num} > ${pcage_num}"
+    fi
+}
+update_only()
+{
+	#systemctl restart tdp-hotfix
+	echo "systemctl restart tdp-hotfix"
+}
+update_change()
+{
+    echo "############################################"
+    echo "删除mysql中最后一条升级记录"
+    #change db
+    db_delete=`mysql tip_web -e "delete  from hotfix where id = (select id from hotfix order by id desc limit 1);"`
+    db_now_last_all=`mysql tip_web -e "select * from hotfix order by id desc limit 1\G"`
+    echo -e "${db_now_last_all}"
+    db_now_last=`mysql tip_web -e "select hotfix_num from hotfix order by id desc limit 1;"|tail -n 1`
+ 
+    #change version 
+    echo "############################################"
+    echo "修改/usr/tdp中version和hotfix-version中的小版本为当前myslq最后存储的${db_now_last}"
+    mv /usr/tdp/version /usr/tdp/version_back
+    cat /usr/tdp/version_back |sed "s/\(ver=[0-9].[0-9].[0-9]\?.\)[0-9]\{4\} /\1${db_now_last} /g" >/usr/tdp/version
+    echo "cat /usr/tdp/version |grep ver="
+    cat /usr/tdp/version |grep ver=
+    #change hotfix-version 
+    echo "############################################"
+    mv /usr/tdp/hotfix-version /usr/tdp/hotfix-version_back
+    cat /usr/tdp/hotfix-version_back |sed "s/\(HOTFIX_NUM=\).*/\1${db_now_last}/" >/usr/tdp/hotfix-version    
+    echo "cat /usr/tdp/hotfix-version |grep HOTFIX_NUM"
+    cat /usr/tdp/hotfix-version |grep HOTFIX_NUM
+    #systemctl restart tdp-hotfix
+    echo "systemctl restart tdp-hotfix"
+}
+check_pcap
