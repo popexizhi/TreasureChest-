@@ -69,4 +69,5 @@ update_change()
     #systemctl restart tdp-hotfix
     echo "systemctl restart tdp-hotfix"
 }
-check_pcap
+#check_pcap
+update_change
