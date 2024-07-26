@@ -1,1 +1,8 @@
 #git backup for all
+backup_dir="auto_tool"
+ip="192.168.100.120"
+git_dir="/root/tool/TreasureChest-"
+git_message="$1"
+cd ../&&scp -r ${backup_dir} root@${ip}:${git_dir}
+ssh root@${ip} "cd ${git_dir}&&git commit -a -m \"${git_message}\"&&git push origin batch_do"
+
