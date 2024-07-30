@@ -52,20 +52,36 @@ update_change()
     db_now_last_all=`mysql tip_web -e "select * from hotfix order by id desc limit 1\G"`
     echo -e "${db_now_last_all}"
     db_now_last=`mysql tip_web -e "select hotfix_num from hotfix order by id desc limit 1;"|tail -n 1`
- 
     #change version 
     echo "############################################"
-    echo "修改/usr/tdp中version和hotfix-version中的小版本为当前myslq最后存储的${db_now_last}"
     mv /usr/tdp/version /usr/tdp/version_back
-    cat /usr/tdp/version_back |sed "s/\(ver=[0-9].[0-9].[0-9]\?.\)[0-9]\{4\} /\1${db_now_last} /g" >/usr/tdp/version
+    #fix:bug大版本号检测
+    db_now_last_version=`mysql tip_web -e "select tdp_version from hotfix order by id desc limit 1;"|tail -n 1`
+    echo "检测/usr/tdp中version和hotfix-version中的大版本为当前myslq最后存储的${db_now_last_version}"
+    cat /usr/tdp/version_back|sed "s/^\(VER=\)\(.*\)/\1${db_now_last_version}/" >/usr/tdp/version_back_
+    mv /usr/tdp/version_back_ /usr/tdp/version_back
+
+    echo "修改/usr/tdp中version和hotfix-version中的版本为当前myslq最后存储的${db_now_last}"
+    cat /usr/tdp/version_back |sed "s/\(ver=\)[0-9].[0-9].[0-9]\+.[0-9]\{4\} /\1${db_now_last_version}.${db_now_last} /g" >/usr/tdp/version
     echo "cat /usr/tdp/version |grep ver="
     cat /usr/tdp/version |grep ver=
+    echo "cat /usr/tdp/version |grep VER="
+    cat /usr/tdp/version |grep VER=
     #change hotfix-version 
     echo "############################################"
     mv /usr/tdp/hotfix-version /usr/tdp/hotfix-version_back
-    cat /usr/tdp/hotfix-version_back |sed "s/\(HOTFIX_NUM=\).*/\1${db_now_last}/" >/usr/tdp/hotfix-version    
+    cat /usr/tdp/hotfix-version_back |sed "s/\(HOTFIX_NUM=\).*/\1${db_now_last}/" >/usr/tdp/hotfix-version
+    mv /usr/tdp/hotfix-version /usr/tdp/hotfix-version_back
+    cat /usr/tdp/hotfix-version_back |sed "s/\(VER=\).*/\1${db_now_last_version}/" >/usr/tdp/hotfix-version
+    mv /usr/tdp/hotfix-version /usr/tdp/hotfix-version_back
+    cat /usr/tdp/hotfix-version_back |sed "s/\(ver=\).*/\1${db_now_last_version}/" >/usr/tdp/hotfix-version
+
     echo "cat /usr/tdp/hotfix-version |grep HOTFIX_NUM"
     cat /usr/tdp/hotfix-version |grep HOTFIX_NUM
+    echo "cat /usr/tdp/hotfix-version |grep ver="
+    cat /usr/tdp/hotfix-version |grep ver=
+    echo "cat /usr/tdp/hotfix-version |grep VER="
+    cat /usr/tdp/hotfix-version |grep VER=
     #systemctl restart tdp-hotfix
     echo "systemctl restart tdp-hotfix"
 }
