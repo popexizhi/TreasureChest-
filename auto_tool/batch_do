@@ -27,23 +27,24 @@ add_auto_hotfix()
     ssh root@$i "if [ ! -d ~/test ];then mkdir test;fi" 
     scp -r auto_hotfix_edit root@$i:~/test
 }
-list="192.168.119.63
+list=$1
+#list="192.168.119.63
 #192.168.119.59
 #192.168.119.60
 #192.168.119.61
 #192.168.119.62
 #192.168.119.64"
-list="192.168.118.155
-192.168.118.152
-192.168.118.153
-192.168.118.154
-192.168.118.151"
+#list="192.168.118.155
+#192.168.118.152
+#192.168.118.153
+#192.168.118.154
+#192.168.118.151"
 for i in $list
 do
 	echo "###########$i##############"
-    #add_tap
-    #pcap_add
+    add_tap
+    pcap_add
     #fix_tcpreplay
-    add_auto_hotfix
+    #add_auto_hotfix
     #exit
 done
