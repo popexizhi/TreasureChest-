@@ -3,5 +3,7 @@
 bash add_key ${ip}
 #批量处理主机内容
 bash batch_do
+#批量处理主机执行脚本, hots_list为主机列表
+bash hosts_do hosts_list 
 #github backup
 bash git_backup "${git add message}"
