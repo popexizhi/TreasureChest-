@@ -1,0 +1,9 @@
+#git add file or dir
+backup_dir="auto_tool"
+ip="192.168.100.120"
+files="$1"
+git_dir="/root/tool/TreasureChest-/${files}"
+git_message="$2"
+cd ../&&scp -r ${backup_dir} root@${ip}:${git_dir}
+ssh root@${ip} "cd ${git_dir}&&git add ${files}&&git commit -a -m \"${git_message}\"&&git push origin batch_do"
+
