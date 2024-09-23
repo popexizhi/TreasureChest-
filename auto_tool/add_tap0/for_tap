@@ -1,7 +1,0 @@
-chmod +x tuntap
-cp tuntap /etc/init.d/tuntap
-
-chkconfig --add tuntap
-chkconfig --level 2345 tuntap on
-
-service tuntap start
