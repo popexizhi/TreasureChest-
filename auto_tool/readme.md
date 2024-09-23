@@ -7,3 +7,5 @@ bash batch_do
 bash hosts_do hosts_list 
 #github backup
 bash git_backup "${git add message}"
+#github add file||dir
+bash git_add {${file}|${dir}} "{git add message}"

@@ -4,6 +4,7 @@ ip="192.168.100.120"
 files="$1"
 git_dir="/root/tool/TreasureChest-/"
 git_message="$2"
-cd ../&&scp -r ${backup_dir} root@${ip}:${git_dir}
+#cd ../&&scp -r ${backup_dir} root@${ip}:${git_dir}
+scp -r ${files} root@${ip}:${git_dir}/${backup_dir}
 ssh root@${ip} "cd ${git_dir}/${backup_dir}&&git add ${files}&&git commit -a -m \"${git_message}\"&&git push origin batch_do"
 
