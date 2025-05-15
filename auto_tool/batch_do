@@ -6,6 +6,8 @@ add_tap()
     ssh root@$i "yum -y --enablerepo=nux-misc install tunctl"
     ssh root@$i "tunctl -b&&ifconfig tap0 up"
     ssh root@$i "ip add|grep tap"
+    scp -r add_tap0X/ root@$i:~
+    ssh root@$i "cd add_tap0X&&bash for_tap"
 }
 #pcap包哈
 pcap_add()
@@ -19,6 +21,8 @@ pcap_add()
 fix_tcpreplay()
 {
 	ssh root@$i "yum install libnsl.x86_64 -y"
+	scp tcpreplay root@$i:/usr/bin
+    ssh root@$i "chmod +x /usr/bin/tcpreplay"
     ssh root@$i "tcpreplay -h"
 }
 #添加hotfix自动更新文件
@@ -42,7 +46,7 @@ list=$1
 for i in $list
 do
 	echo "###########$i##############"
-    add_tap
+    #add_tap
     pcap_add
     #fix_tcpreplay
     #add_auto_hotfix

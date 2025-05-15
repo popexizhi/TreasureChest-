@@ -5,6 +5,8 @@ bash add_key ${ip}
 bash batch_do
 #批量处理主机执行脚本, hots_list为主机列表
 bash hosts_do hosts_list 
+	#批量删除主机列表中主机的last版本号
+	bash hosts_doX t_list1 auto_hotfix_edit_only_del
 #github backup
 bash git_backup "${git add message}"
 #github add file||dir

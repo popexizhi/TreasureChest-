@@ -1,7 +1,9 @@
 #前提ssh成功一次再使用如下代码
 #pd="RMM!Admin123"
-#pd="tdp#2023@hdyz"
-pd="threatbook"
+#pd="Tbook@704"
+#pd="9rk6P^NcKH"
+pd="tdp#2023@hdyz"
+#pd="threatbook"
 ip=$1
 ./sshpass -p "${pd}" scp backup_authorized_keys root@${ip}:"~"
 ./sshpass -p "${pd}" ssh root@${ip} "if [ ! -d ~/.ssh ];then mkdir ~/.ssh&&chmod 700 ~/.ssh&&touch ~/.ssh/authorized_keys ;fi" 
