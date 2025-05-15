@@ -1,0 +1,14 @@
+#!/bin/bash
+list=$1
+do_script=$2
+doing(){
+	file_script="$do_script"
+	#file_script="auto_hotfix_edit"
+    scp ${file_script} root@$i:"~" 
+    ssh root@$i "bash ~/${file_script}"
+}
+for i in `cat ${list}`
+do
+	echo "###########$i##############"
+    doing ${i}
+done
